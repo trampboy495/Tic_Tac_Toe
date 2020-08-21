@@ -14,6 +14,20 @@ public class PlayTicTacToe {
 		System.out.println("simulating coin toss to decide who plays first");
 		Random rand = new Random();
 		int random = rand.nextInt(2);
+		if(random == isComputer) {
+                        currentPlayer = Player.Cross;
+                }
+                else {
+                        System.out.println("you won choose your symbol X or O");
+                        String choice = sc.nextLine();
+                        if(choice.equals("X")) {
+                                currentPlayer = Player.Cross;
+                        }
+                        else {
+                                currentPlayer = Player.Nought;
+                        }
+                }
+
 	}
 
 	public static void main(String[] args) {
