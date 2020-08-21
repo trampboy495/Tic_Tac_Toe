@@ -15,12 +15,12 @@ public class Cell {
 	public void paint() {
 		switch(content) {
 		case Cross:
-			System.out.println(" X ");
+			System.out.print(" X ");
 		case Nought:
-			System.out.println(" O ");
+			System.out.print(" O ");
 			break;
-		default:
-			System.out.println("   ");
+		case Empty:
+			System.out.print("   ");
 			break;
 		}
 	}

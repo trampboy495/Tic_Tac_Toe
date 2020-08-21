@@ -5,13 +5,17 @@ public class PlayTicTacToe {
 	private static Player currentPlayer;
 	private static Scanner sc = new Scanner(System.in);
 	private static int isComputer = 1;
+	private static Board board;
 
 	PlayTicTacToe() {
+		board = new Board();
 		init();
+		board.paint();
+
 	}
 
 	public void init() {
-		System.out.println("simulating coin toss to decide who plays first");
+		System.out.print("simulating coin toss to decide who plays first \n\n");
 		Random rand = new Random();
 		int random = rand.nextInt(2);
 		if(random == isComputer) {
