@@ -51,7 +51,7 @@ public class PlayTicTacToe {
 
 	public void playMove(Player player) {
 		if(player == computer) {
-
+			computerMove(player);
 		} else {
 			boolean validInput = false;
 			do {
@@ -89,6 +89,8 @@ public class PlayTicTacToe {
 
 	public void computerMove(Player player) {
 		if(checkIfWon(player))
+			return;
+		else if(checkIfWon(human))
 			return;
 	}
 
