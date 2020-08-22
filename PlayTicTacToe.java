@@ -6,12 +6,13 @@ public class PlayTicTacToe {
 	private static Scanner sc = new Scanner(System.in);
 	private static int isComputer = 1;
 	private static Board board;
+	private static GameState currentState;
 
 	PlayTicTacToe() {
 		board = new Board();
 		init();
+		playMove(currentPlayer);
 		board.paint();
-
 	}
 
 	public void init() {
@@ -31,7 +32,27 @@ public class PlayTicTacToe {
                                 currentPlayer = Player.Nought;
                         }
                 }
+		currentState = GameState.Playing;
+		board.paint();
 
+	}
+
+	public void playMove(Player player) {
+		boolean validInput = false;
+		do {
+			System.out.print("player enter your move (rows:[1-3] cols:[1-3]) : ");
+			int row = sc.nextInt() - 1;
+			int col = sc.nextInt() - 1;
+			if (row >= 0 && row < Board.ROWS && col >= 0 && col < Board.COLS
+					&& board.cells[row][col].content == Player.Empty) {
+				board.cells[row][col].content = player;
+				board.currentRow = row;
+				board.currentCol = col;
+				validInput = true;
+			} else {
+				System.out.println("Invalid move at (" + row + "," + col + ") try again");
+			}
+		} while (!validInput);
 	}
 
 	public static void main(String[] args) {

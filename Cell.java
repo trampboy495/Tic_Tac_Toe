@@ -16,6 +16,7 @@ public class Cell {
 		switch(content) {
 		case Cross:
 			System.out.print(" X ");
+			break;
 		case Nought:
 			System.out.print(" O ");
 			break;
