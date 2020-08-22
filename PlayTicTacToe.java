@@ -20,7 +20,7 @@ public class PlayTicTacToe {
 			if (currentState == GameState.Player_Won) {
 				System.out.println("Game has ended and Player is the winner ");
 			} else if (currentState == GameState.Computer_Won) {
-				System.out.println("Game has ended and Nought is the winner");
+				System.out.println("Game has ended and Computer is the winner");
 			} else if (currentState == GameState.Draw) {
 				System.out.println("it's a draw");
 			}
@@ -40,14 +40,8 @@ public class PlayTicTacToe {
                 else {
                         System.out.println("you won choose your symbol X or O");
                         String choice = sc.nextLine();
-                        if(choice.equals("X")) {
-                                currentPlayer = Player.Cross;
-				computer = Player.Nought;
-                        }
-                        else {
-                                currentPlayer = Player.Nought;
-				computer = Player.Cross;
-                        }
+                        currentPlayer = (choice.equals("X")) ? (Player.Cross) : (Player.Nought);
+			computer = (choice.equals("X")) ? (Player.Nought) : (Player.Cross);
 			human = currentPlayer;
                 }
 		currentState = GameState.Playing;
@@ -56,21 +50,46 @@ public class PlayTicTacToe {
 	}
 
 	public void playMove(Player player) {
-		boolean validInput = false;
-		do {
-			System.out.print("player enter your move (rows:[1-3] cols:[1-3]) : ");
-			int row = sc.nextInt() - 1;
-			int col = sc.nextInt() - 1;
-			if (row >= 0 && row < Board.ROWS && col >= 0 && col < Board.COLS
-					&& board.cells[row][col].content == Player.Empty) {
-				board.cells[row][col].content = player;
-				board.currentRow = row;
-				board.currentCol = col;
-				validInput = true;
-			} else {
-				System.out.println("Invalid move at (" + row + "," + col + ") try again");
+		if(player == computer) {
+
+		} else {
+			boolean validInput = false;
+			do {
+				System.out.print("player enter your move (rows:[1-3] cols:[1-3]) : ");
+				int row = sc.nextInt() - 1;
+				int col = sc.nextInt() - 1;
+				if (row >= 0 && row < Board.ROWS && col >= 0 && col < Board.COLS
+						&& board.cells[row][col].content == Player.Empty) {
+					board.cells[row][col].content = player;
+					board.currentRow = row;
+					board.currentCol = col;
+					validInput = true;
+				} else {
+					System.out.println("Invalid move at (" + row + "," + col + ") try again");
+				}
+			} while (!validInput);
+		}
+	}
+
+	public boolean checkIfWon(Player player) {
+		for (int row = 0; row < Board.ROWS; row++) {
+			for (int col = 0; col < Board.COLS; col++) {
+				if(board.cells[row][col].content == Player.Empty){
+					board.cells[row][col].content = player;
+					board.currentRow = row;
+					board.currentCol = col;
+					if(board.hasWon(player))
+						return true;
+					board.cells[row][col].content = Player.Empty;
+				}
 			}
-		} while (!validInput);
+		}
+		return false;
+	}
+
+	public void computerMove(Player player) {
+		if(checkIfWon(player))
+			return;
 	}
 
 	public void updateGameStatus(Player player) {
