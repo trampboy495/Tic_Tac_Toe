@@ -12,6 +12,16 @@ public class Board {
 		}
 	}
 
+	public boolean isDraw() {
+		for (Cell[] cell : cells) {
+			for (Cell value : cell) {
+				if(value.content == Player.Empty)
+					return false;
+			}
+		}
+		return true;
+	}
+
 	public boolean hasWon(Player player) {
 		if(currentRow == 1 && currentCol == 1) {
 			return(cells[0][0].content == player && cells[2][2].content == player ||

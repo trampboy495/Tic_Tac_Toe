@@ -3,6 +3,8 @@ import java.util.Random;
 
 public class PlayTicTacToe {
 	private static Player currentPlayer;
+	private static Player computer;
+	private static Player human;
 	private static Scanner sc = new Scanner(System.in);
 	private static int isComputer = 1;
 	private static Board board;
@@ -11,8 +13,19 @@ public class PlayTicTacToe {
 	PlayTicTacToe() {
 		board = new Board();
 		init();
-		playMove(currentPlayer);
-		board.paint();
+		do {
+			playMove(currentPlayer);
+			board.paint();
+			updateGameStatus(currentPlayer);
+			if (currentState == GameState.Player_Won) {
+				System.out.println("Game has ended and Player is the winner ");
+			} else if (currentState == GameState.Computer_Won) {
+				System.out.println("Game has ended and Nought is the winner");
+			} else if (currentState == GameState.Draw) {
+				System.out.println("it's a draw");
+			}
+			currentPlayer = (currentPlayer == computer) ? (human) : (computer);
+		} while (currentState == GameState.Playing);
 	}
 
 	public void init() {
@@ -21,16 +34,21 @@ public class PlayTicTacToe {
 		int random = rand.nextInt(2);
 		if(random == isComputer) {
                         currentPlayer = Player.Cross;
+			computer = Player.Cross;
+			human = Player.Nought;
                 }
                 else {
                         System.out.println("you won choose your symbol X or O");
                         String choice = sc.nextLine();
                         if(choice.equals("X")) {
                                 currentPlayer = Player.Cross;
+				computer = Player.Nought;
                         }
                         else {
                                 currentPlayer = Player.Nought;
+				computer = Player.Cross;
                         }
+			human = currentPlayer;
                 }
 		currentState = GameState.Playing;
 		board.paint();
@@ -53,6 +71,14 @@ public class PlayTicTacToe {
 				System.out.println("Invalid move at (" + row + "," + col + ") try again");
 			}
 		} while (!validInput);
+	}
+
+	public void updateGameStatus(Player player) {
+		if(board.hasWon(player)) {
+			currentState = (player == computer) ? (GameState.Computer_Won) : (GameState.Player_Won);
+		} else if(board.isDraw()) {
+			currentState = GameState.Draw;
+		}
 	}
 
 	public static void main(String[] args) {
