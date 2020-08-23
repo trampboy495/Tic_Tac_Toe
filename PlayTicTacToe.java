@@ -73,33 +73,36 @@ public class PlayTicTacToe {
 		}
 	}
 
-	public boolean getMove(Player player, int scenario) {
+	public boolean getMove(Player player) {
 		int size = board.cells.length * board.cells.length;
+		int cornerCounter = 0;
 		for (int i=0; i < size; i++ ) {
 				int row = i / board.cells.length;
 				int col = i % board.cells.length;
-				if(board.cells[row][col].content == Player.Empty && scenario == 1 || scenario == 2) {
+				if(board.cells[row][col].content == Player.Empty) {
 					board.cells[row][col].content = player;
 					board.currentRow = row;
 					board.currentCol = col;
 					if(board.hasWon(player))
 						return true;
 					board.cells[row][col].content = Player.Empty;
-				} else if(scenario == 3 && ++row * ++col % 2 == 0 && row != 2 && col != 2) {
-					cornerRow = row - 1;
-					cornerCol = col - 1;
-					return true;
+					if(++row * ++col % 2 == 0 && row != 2 && col != 2 && cornerCounter < 1)
+						cornerRow = row - 1;
+						cornerCol = col - 1;
+						cornerCounter++;
 				}
 		}
 		return false;
 	}
 
 	public void computerMove(Player player) {
-		if(!getMove(player, 1))
-			if(getMove(human, 2))
+		if(!getMove(player))
+			if(getMove(human))
 				board.cells[board.currentRow][board.currentCol].content = player;
-			else if(getMove(player, 3))
+			else if(cornerRow != 0)
 				board.cells[cornerRow][cornerCol].content = player;
+			else if(board.cells[1][1].content == Player.Empty)
+				board.cells[1][1].content = player;
 	}
 
 	public void updateGameStatus(Player player) {
