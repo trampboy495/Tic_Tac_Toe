@@ -7,6 +7,8 @@ public class PlayTicTacToe {
 	private static Player human;
 	private static Scanner sc = new Scanner(System.in);
 	private static int isComputer = 1;
+	private static int cornerRow;
+	private static int cornerCol;
 	private static Board board;
 	private static GameState currentState;
 
@@ -71,27 +73,33 @@ public class PlayTicTacToe {
 		}
 	}
 
-	public boolean checkIfWon(Player player) {
-		for (int row = 0; row < Board.ROWS; row++) {
-			for (int col = 0; col < Board.COLS; col++) {
-				if(board.cells[row][col].content == Player.Empty){
+	public boolean getMove(Player player, int scenario) {
+		int size = board.cells.length * board.cells.length;
+		for (int i=0; i < size; i++ ) {
+				int row = i / board.cells.length;
+				int col = i % board.cells.length;
+				if(board.cells[row][col].content == Player.Empty && scenario == 1 || scenario == 2) {
 					board.cells[row][col].content = player;
 					board.currentRow = row;
 					board.currentCol = col;
 					if(board.hasWon(player))
 						return true;
 					board.cells[row][col].content = Player.Empty;
+				} else if(scenario == 3 && ++row * ++col % 2 == 0 && row != 2 && col != 2) {
+					cornerRow = row - 1;
+					cornerCol = col - 1;
+					return true;
 				}
-			}
 		}
 		return false;
 	}
 
 	public void computerMove(Player player) {
-		if(checkIfWon(player))
-			return;
-		else if(checkIfWon(human))
-			return;
+		if(!getMove(player, 1))
+			if(getMove(human, 2))
+				board.cells[board.currentRow][board.currentCol].content = player;
+			else if(getMove(player, 3))
+				board.cells[cornerRow][cornerCol].content = player;
 	}
 
 	public void updateGameStatus(Player player) {
