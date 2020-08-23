@@ -37,6 +37,7 @@ public class PlayTicTacToe {
 		Random rand = new Random();
 		int random = rand.nextInt(2);
 		if (random == isComputer) {
+			System.out.println("computer won the toss");
 			currentPlayer = Player.Cross;
 			computer = Player.Cross;
 			human = Player.Nought;
@@ -46,10 +47,9 @@ public class PlayTicTacToe {
 			currentPlayer = (choice.equals("X")) ? (Player.Cross) : (Player.Nought);
 			computer = (choice.equals("X")) ? (Player.Nought) : (Player.Cross);
 			human = currentPlayer;
+			board.paint();
 		}
 		currentState = GameState.Playing;
-		board.paint();
-
 	}
 
 	public void playMove(Player player) {

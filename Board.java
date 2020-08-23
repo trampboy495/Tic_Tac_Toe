@@ -23,14 +23,15 @@ public class Board {
 	}
 
 	public boolean hasWon(Player player) {
-		if(currentRow == 1 && currentCol == 1) {
+		if(cells[0][currentCol].content == player && cells[1][currentCol].content == player
+			&& cells[2][currentCol].content == player || cells[currentRow][0].content == player
+			&& cells[currentRow][1].content == player && cells[currentRow][2].content == player ) {
+			return true;
+		} else if(cells[1][1].content == player) {
 			return(cells[0][0].content == player && cells[2][2].content == player ||
 				cells[0][2].content == player && cells[2][0].content == player);
-		} else {
-			return(cells[0][currentCol].content == player && cells[1][currentCol].content == player
-				&& cells[2][currentCol].content == player || cells[currentRow][0].content == player
-				&& cells[currentRow][1].content == player && cells[currentRow][2].content == player );
-		}
+		} 
+		return false;
 	}
 
 	public void paint() {
