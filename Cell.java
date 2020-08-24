@@ -9,18 +9,18 @@ public class Cell {
 	}
 
 	public void clear() {
-		content = Player.Empty;
+		content = Player.EMPTY;
 	}
 
 	public void paint() {
 		switch(content) {
-		case Cross:
+		case CROSS:
 			System.out.print(" X ");
 			break;
-		case Nought:
+		case NOUGHT:
 			System.out.print(" O ");
 			break;
-		case Empty:
+		case EMPTY:
 			System.out.print("   ");
 			break;
 		}

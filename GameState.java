@@ -1,3 +1,3 @@
 public enum GameState {
-	Playing, Draw, Player_Won, Computer_Won
+	PLAYING, DRAW, PLAYER_WON, COMPUTER_WON
 }

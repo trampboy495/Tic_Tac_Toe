@@ -15,7 +15,7 @@ public class Board {
 	public boolean isDraw() {
 		for (Cell[] cell : cells) {
 			for (Cell value : cell) {
-				if(value.content == Player.Empty)
+				if(value.content == Player.EMPTY)
 					return false;
 			}
 		}

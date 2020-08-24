@@ -21,15 +21,15 @@ public class PlayTicTacToe {
 			playMove(currentPlayer);
 			board.paint();
 			updateGameStatus(currentPlayer);
-			if (currentState == GameState.Player_Won) {
+			if (currentState == GameState.PLAYER_WON) {
 				System.out.println("Game has ended and Player is the winner ");
-			} else if (currentState == GameState.Computer_Won) {
+			} else if (currentState == GameState.COMPUTER_WON) {
 				System.out.println("Game has ended and Computer is the winner");
-			} else if (currentState == GameState.Draw) {
+			} else if (currentState == GameState.DRAW) {
 				System.out.println("it's a draw");
 			}
 			currentPlayer = (currentPlayer == computer) ? (human) : (computer);
-		} while (currentState == GameState.Playing);
+		} while (currentState == GameState.PLAYING);
 	}
 
 	public void init() {
@@ -38,18 +38,18 @@ public class PlayTicTacToe {
 		int random = rand.nextInt(2);
 		if (random == isComputer) {
 			System.out.println("computer won the toss");
-			currentPlayer = Player.Cross;
-			computer = Player.Cross;
-			human = Player.Nought;
+			currentPlayer = Player.CROSS;
+			computer = Player.CROSS;
+			human = Player.NOUGHT;
 		} else {
 			System.out.println("you won choose your symbol X or O");
 			String choice = sc.nextLine();
-			currentPlayer = (choice.equals("X")) ? (Player.Cross) : (Player.Nought);
-			computer = (choice.equals("X")) ? (Player.Nought) : (Player.Cross);
+			currentPlayer = (choice.equals("X")) ? (Player.CROSS) : (Player.NOUGHT);
+			computer = (choice.equals("X")) ? (Player.NOUGHT) : (Player.CROSS);
 			human = currentPlayer;
 			board.paint();
 		}
-		currentState = GameState.Playing;
+		currentState = GameState.PLAYING;
 	}
 
 	public void playMove(Player player) {
@@ -62,7 +62,7 @@ public class PlayTicTacToe {
 				int row = sc.nextInt() - 1;
 				int col = sc.nextInt() - 1;
 				if (row >= 0 && row < Board.ROWS && col >= 0 && col < Board.COLS
-						&& board.cells[row][col].content == Player.Empty) {
+						&& board.cells[row][col].content == Player.EMPTY) {
 					board.cells[row][col].content = player;
 					setCurrentRowAndCol(row, col);
 					validInput = true;
@@ -85,12 +85,12 @@ public class PlayTicTacToe {
 		for (int i = 0; i < size; i++) {
 			int row = i / board.cells.length;
 			int col = i % board.cells.length;
-			if (board.cells[row][col].content == Player.Empty) {
+			if (board.cells[row][col].content == Player.EMPTY) {
 				board.cells[row][col].content = player;
 				setCurrentRowAndCol(row, col);
 				if (board.hasWon(player))
 					return true;
-				board.cells[row][col].content = Player.Empty;
+				board.cells[row][col].content = Player.EMPTY;
 				if (++row * ++col != 4 && ((row * col) - 1) % 2 == 0 && cornerCounter < 1) {
 					cornerRow = row - 1;
 					cornerCol = col - 1;
@@ -113,7 +113,7 @@ public class PlayTicTacToe {
 			} else if (cornerRow != -1) {
 				board.cells[cornerRow][cornerCol].content = player;
 				setCurrentRowAndCol(cornerRow, cornerCol);
-			} else if (board.cells[1][1].content == Player.Empty) {
+			} else if (board.cells[1][1].content == Player.EMPTY) {
 				board.cells[1][1].content = player;
 				setCurrentRowAndCol(1, 1);
 			} else if (sideRow != -1) {
@@ -126,9 +126,9 @@ public class PlayTicTacToe {
 
 	public void updateGameStatus(Player player) {
 		if (board.hasWon(player)) {
-			currentState = (player == computer) ? (GameState.Computer_Won) : (GameState.Player_Won);
+			currentState = (player == computer) ? (GameState.COMPUTER_WON) : (GameState.PLAYER_WON);
 		} else if (board.isDraw()) {
-			currentState = GameState.Draw;
+			currentState = GameState.DRAW;
 		}
 	}
 

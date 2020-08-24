@@ -1,3 +1,3 @@
 public enum Player {
-	Empty, Nought, Cross
+	EMPTY, NOUGHT, CROSS
 }
