@@ -2,17 +2,17 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class PlayTicTacToe {
-	private static Player currentPlayer;
-	private static Player computer;
-	private static Player human;
-	private static Scanner sc = new Scanner(System.in);
-	private static int isComputer = 1;
-	private static int cornerRow = -1;
-	private static int cornerCol = -1;
-	private static int sideRow = -1;
-	private static int sideCol = -1;
-	private static Board board;
-	private static GameState currentState;
+	private  Player currentPlayer;
+	private  Player computer;
+	private  Player human;
+	private  Scanner sc = new Scanner(System.in);
+	private  int isComputer = 1;
+	private  int cornerRow = -1;
+	private  int cornerCol = -1;
+	private  int sideRow = -1;
+	private  int sideCol = -1;
+	private  Board board;
+	private  GameState currentState;
 
 	PlayTicTacToe() {
 		board = new Board();
